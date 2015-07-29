@@ -35,6 +35,9 @@ class UsersController < ApplicationController
   end
   
   def validate_user
+
+    @cuesr = current_user.id
+    @pid = params[:id]
     if current_user.id != params[:id]
        flash.now[:alert] = "プロフィールは自分自身のプロフィールのみ編集できます。"
        redirect_to :action => "show", :id => params[:id]
