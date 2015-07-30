@@ -3,15 +3,22 @@ class UsersController < ApplicationController
   before_action :validate_user, only: [:edit, :update]
   
   def edit
-  
+    @user = User.find(params[:id])
   end
   
   def update
-    
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = 'プロフィールを更新しました。'
+      redirect_to @user
+    else
+      render 'edit'
+    end
   end
   
   def show
     @user = User.find(params[:id])
+    #@unko = session[:user_id]
   end
   
   def new
@@ -31,16 +38,16 @@ class UsersController < ApplicationController
   
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :introduction, :region, :password, :password_confirmation)
   end
   
   def validate_user
-
-    @cuesr = current_user.id
-    @pid = params[:id]
-    if current_user.id != params[:id]
-       flash.now[:alert] = "プロフィールは自分自身のプロフィールのみ編集できます。"
+    current_user = User.find_by(id: session[:user_id])
+    if current_user
+      if current_user.id != params[:id]
+       flash[:alert] = "プロフィールは自分自身のプロフィールのみ編集できます。"
        redirect_to :action => "show", :id => params[:id]
+      end
     end
   end
   
