@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   def validate_user
     current_user = User.find_by(id: session[:user_id])
     if current_user
-      if current_user.id != params[:id]
+      if current_user.id != params[:id].to_i
        flash[:alert] = "プロフィールは自分自身のプロフィールのみ編集できます。"
        redirect_to :action => "show", :id => params[:id]
       end
