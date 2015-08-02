@@ -19,6 +19,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts
+    @followings = followings(@user)
+    @followers = followers(@user)
   end
   
   def new
@@ -50,5 +52,12 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def followings(user)
+    return user.following_users.all
+  end
   
+  def followers(user)
+    return user.followed_users.all
+  end
 end
