@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    #@unko = session[:user_id]
+    @microposts = @user.microposts
   end
   
   def new
