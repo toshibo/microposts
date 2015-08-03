@@ -28,4 +28,19 @@
             </ol>
         <% end %>
     </div>
+    <div class="col-md-8">
+        <h3>Profile</h3>
+        <h4>＜自己紹介＞</h4>
+        <p><%= @user.introduction %></p>
+        <h4>＜名前＞</h4>
+        <p><%= @user.name %></p>
+        <h4>＜地域＞</h4>
+        <p><%= @user.region %></p>
+    </div>
 </div>
+
+<% if current_user.id == @user.id %>
+    <p>
+      <span class="btn btn-primary"><%= link_to "プロフィールを編集する", edit_user_path(@user), :class => "button_link" %></span>
+    </p>
+<% end %>
