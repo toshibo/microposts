@@ -60,4 +60,6 @@ class UsersController < ApplicationController
   def followers(user)
     return user.followed_users.all
   end
+  
+  
 end
